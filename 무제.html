@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2575.7">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">import { useState } from "react";</p>
+<p class="p1">import { motion, AnimatePresence } from "framer-motion";</p>
+<p class="p1">import { CheckCircle2, Plus } from "lucide-react";</p>
+<p class="p2"><br></p>
+<p class="p1">export default function TodoApp() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const [todos, setTodos] = useState([]);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const [input, setInput] = useState("");</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>const addTodo = () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (!input.trim()) return;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>setTodos([...todos, { id: Date.now(), text: input }]);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>setInput("");</p>
+<p class="p1"><span class="Apple-converted-space">  </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>const removeTodo = (id) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>setTodos(todos.filter((todo) =&gt; todo.id !== id));</p>
+<p class="p1"><span class="Apple-converted-space">  </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>return (</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div className="w-full max-w-md bg-white/90 backdrop-blur rounded-2xl shadow-xl p-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;h1 className="text-2xl font-bold text-gray-800 mb-4 text-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>오늘의 할 일</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/h1&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div className="flex gap-2 mb-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;input</p>
+<p class="p1"><span class="Apple-converted-space">            </span>value={input}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>onChange={(e) =&gt; setInput(e.target.value)}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>onKeyDown={(e) =&gt; e.key === "Enter" &amp;&amp; addTodo()}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>placeholder="할 일을 입력하세요"</p>
+<p class="p1"><span class="Apple-converted-space">            </span>className="flex-1 px-4 py-2 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-400"</p>
+<p class="p1"><span class="Apple-converted-space">          </span>/&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">            </span>onClick={addTodo}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>className="p-2 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow hover:opacity-90"</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;Plus size={20} /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;ul className="space-y-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;AnimatePresence&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{todos.map((todo) =&gt; (</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;motion.li</p>
+<p class="p1"><span class="Apple-converted-space">                </span>key={todo.id}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>initial={{ opacity: 0, y: 10 }}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>animate={{ opacity: 1, y: 0 }}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>exit={{ opacity: 0, x: 50 }}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>className="flex items-center justify-between bg-gray-50 rounded-xl px-4 py-3 shadow-sm"</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;span className="text-gray-700"&gt;{todo.text}&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>onClick={() =&gt; removeTodo(todo.id)}</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>className="text-green-500 hover:scale-110 transition"</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;CheckCircle2 /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/motion.li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>))}</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/AnimatePresence&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/ul&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>{todos.length === 0 &amp;&amp; (</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;p className="text-center text-gray-400 mt-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>오늘의 할 일을 추가해보세요 ✨</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>)}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>);</p>
+<p class="p1">}</p>
+</body>
+</html>
